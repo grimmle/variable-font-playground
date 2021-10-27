@@ -12,7 +12,7 @@ export default function App({ fonts }) {
   const [transform, setTransform] = useState({
     size: 50,
     letterSpace: 1,
-    lineHeight: 1,
+    lineHeight: 50,
     transform: '',
     align: 'left',
   })
@@ -41,8 +41,8 @@ export default function App({ fonts }) {
     'textTransform': transform.transform, 
     'fontSize': transform.size, 
     'textAlign': transform.align, 
-    'letterSpacing': transform.letterSpace, 
-    'lineHeight': transform.lineHeight
+    'letterSpacing': transform.letterSpace,
+    'lineHeight': transform.lineHeight + 'px', 
   }
 
   return (
@@ -76,7 +76,7 @@ export default function App({ fonts }) {
           <p>Size</p>
           <Slider size="small" value={transform.size} min={10} max={100} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('size', e)} aria-label="Size">Size</Slider>
           <p>Letter Spacing</p>
-          <Slider size="small" value={transform.letterSpace} min={-10} max={50} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('letterSpace', e)} aria-label="Letter Spacing">Letter Spacing</Slider>
+          <Slider size="small" value={transform.letterSpace} min={0} max={50} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('letterSpace', e)} aria-label="Letter Spacing">Letter Spacing</Slider>
           <p>Line Height</p>
           <Slider size="small" value={transform.lineHeight} min={0} max={200} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('lineHeight', e)} aria-label="Line Height">lineHeight</Slider>
           {font.axes.map((axis) => {

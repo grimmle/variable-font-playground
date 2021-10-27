@@ -69,7 +69,14 @@ h3 {
   border-radius: 0 !important;
 }
 
+.MuiButton-outlined {
+  border-radius: 0;
+  border-color: grey;
+}
+
 .MuiSelect-outlined {
+  border-color: grey;
+  border-radius: 0 !important;
   padding: 5px 14px !important;
   padding-right: 32px !important;
 }
