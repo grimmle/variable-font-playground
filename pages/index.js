@@ -36,6 +36,7 @@ export default function App({ fonts }) {
   }
   
   const style = {
+    // 'fontFace': {},
     'fontFamily': font.name,
     'fontVariationSettings': variation,
     'textTransform': transform.transform, 
