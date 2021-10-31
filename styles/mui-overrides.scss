@@ -1,48 +1,47 @@
+$custom-thumb-width: 76px;
+
 .MuiContainer-root {
   max-width: 800px !important;
 }
 
 .MuiSlider-root {
-  width: calc(100% - 75px) !important;
+  width: calc(100% - $custom-thumb-width) !important;
   display: block !important;
-  margin: 10px 37px 20px !important;
+  margin: 10px calc($custom-thumb-width/2) 20px !important;
 }
 
 .MuiSlider-track {
-  /* border-radius: 0 !important; */
-  /* color: rgba(255, 255, 255, 0.15); */
   /* background: linear-gradient(
     90deg,
     rgb(74, 65, 231) 0%,
     rgb(233, 33, 109) 100%
 ) !important; */
-
   height: 20px !important;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 3px 5px inset !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  margin: 0 0 0 -37px !important;
+  margin: 0 0 0 calc($custom-thumb-width/2 * -1) !important;
+  padding-right: 15px;
 }
 
 .MuiSlider-rail {
   /* background: linear-gradient(90deg,rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%) !important; */
-
   height: 20px !important;
   box-shadow: black 0px 3px 5px inset !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
-  margin: 0 0 0 37px !important;
+  margin: 0 0 0 calc($custom-thumb-width/2) !important;
 }
 
 .MuiSlider-thumb::before {
-  width: 61px !important;
+  width: 62px !important;
   height: 14px !important;
   background: linear-gradient(90deg, darkgrey 0%, white 100%) !important;
   z-index: 3 !important;
 }
 .MuiSlider-thumb {
   border-radius: 0 !important;
-  width: 75px !important;
+  width: $custom-thumb-width !important;
   height: 10px !important;
   border-bottom: ridge !important;
   border-top: groove !important;
@@ -55,11 +54,6 @@
     rgb(255, 255, 255) 100%
 ) !important; */
   border-width: 14px !important;
-  /* outline: 5px solid #eee !important;
-outline-width: 13px !important;
-outline-offset: -19px !important; */
-  /* margin: 0 37px; */
-  /* background: conic-gradient(gray 60deg, white, gray); */
   box-shadow: none !important;
 }
 
