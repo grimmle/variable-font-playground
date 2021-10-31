@@ -120,7 +120,8 @@ export default function App({ fonts }) {
           </div>
         </div>
 
-        <textarea id='variable-text-area' style={style} defaultValue='abcdefghijklmnopqrstuvwxyz'></textarea>
+        <textarea id='variable-text-area' style={style} defaultValue='The quick brown fox jumps over the lazy dog'></textarea>
+        <p style={{ position: 'absolute', bottom: '10px', right: '10px'}}>my github: <a target="_blank" rel="noreferrer" href="https://github.com/grimmle">grimmle</a> </p>
     </div>
     </>
   );
