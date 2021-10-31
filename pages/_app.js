@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/globals.scss'
 import Head from 'next/head'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 

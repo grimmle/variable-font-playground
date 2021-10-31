@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import opentype from 'opentype.js'
 import fs from 'fs';
 import Label from '../components/label'
-
 import { updateGradient } from '../lib/helpers';
 
 
@@ -60,8 +59,9 @@ export default function App({ fonts }) {
       <div className="container">
         <div className="sidebar">
           <div style={{background: 'linear-gradient(-45deg, rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', padding: '10px', borderRadius: '25px'}}>
-          <Box sx={{ position: 'relative', background: 'linear-gradient(-45deg, rgb(233, 33, 109) 0%, rgb(74, 65, 231) 100%)', padding: '20px', borderRadius: '20px'}}>
-            <div className="conic-gradient"></div>
+          <Box sx={{ position: 'relative', background: 'linear-gradient(-45deg, rgb(233, 33, 109) 0%, rgb(74, 65, 231) 100%)', padding: '20px 20px 50px', borderRadius: '20px'}}>
+            <div className="conic-gradient top"></div>
+            <div className="conic-gradient bottom"></div>
             <h3>Font</h3>
             <div className='button-container'>
               <Select value={font} onChange={e => {handleChange('font', e)}} color="primary" variant="outlined" sx={{marginLeft: '10px'}}>

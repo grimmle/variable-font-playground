@@ -96,9 +96,15 @@ h3 {
   height: 25px;
   border-radius: 50%;
   position: absolute;
-  top: 5%;
-  right: 5%;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  &.top {
+    top: 5%;
+    right: 5%;
+  }
+  &.bottom {
+    bottom: 5%;
+    left: 5%;
+  }
 }
 
 .gradient-bg {
@@ -182,6 +188,12 @@ h3 {
   margin: 0 0 0 37px !important;
 }
 
+.MuiSlider-thumb::before {
+  width: 61px !important;
+  height: 14px !important;
+  background: linear-gradient(90deg, darkgrey 0%, white 100%) !important;
+  z-index: 3 !important;
+}
 .MuiSlider-thumb {
   border-radius: 0 !important;
   width: 75px !important;
@@ -190,16 +202,16 @@ h3 {
   border-top: groove !important;
   border-left: ridge !important;
   border-right: groove !important;
-  border-color: lightgray !important;
-  background: linear-gradient(
+  border-color: rgb(233, 233, 233) !important;
+  /* background: linear-gradient(
     90deg,
     rgb(179, 179, 179) 0%,
     rgb(255, 255, 255) 100%
-  ) !important;
+  ) !important; */
   border-width: 14px !important;
-  outline: 5px solid #eee !important;
+  /* outline: 5px solid #eee !important;
   outline-width: 13px !important;
-  outline-offset: -19px !important;
+  outline-offset: -19px !important; */
   /* margin: 0 37px; */
   /* background: conic-gradient(gray 60deg, white, gray); */
   box-shadow: none !important;
