@@ -147,13 +147,13 @@ h3 {
 }
 
 .MuiContainer-root {
-  max-width: 800px;
+  max-width: 800px !important;
 }
 
 .MuiSlider-root {
-  width: calc(100% - 75px);
-  display: block;
-  margin: 10px 37px 20px;
+  width: calc(100% - 75px) !important;
+  display: block !important;
+  margin: 10px 37px 20px !important;
 }
 
 .MuiSlider-track {
@@ -165,50 +165,49 @@ h3 {
     rgb(233, 33, 109) 100%
   ) !important; */
 
-  height: 20px;
-  box-shadow: rgba(0, 0, 0, 0.2) 5px 3px 5px inset;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  margin: 0 0 0 -37px;
+  height: 20px !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 3px 5px inset !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  margin: 0 0 0 -37px !important;
 }
 
 .MuiSlider-rail {
   /* background: linear-gradient(90deg,rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%) !important; */
 
-  height: 20px;
-  box-shadow: black 0px 3px 5px inset;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  margin: 0 0 0 37px;
+  height: 20px !important;
+  box-shadow: black 0px 3px 5px inset !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  margin: 0 0 0 37px !important;
 }
 
-.MuiSlider-thumb,
-.customThumb {
-  border-radius: 0;
-  width: 75px;
-  height: 10px;
-  border-bottom: ridge;
-  border-top: groove;
-  border-left: ridge;
-  border-right: groove;
-  border-color: lightgray;
+.MuiSlider-thumb {
+  border-radius: 0 !important;
+  width: 75px !important;
+  height: 10px !important;
+  border-bottom: ridge !important;
+  border-top: groove !important;
+  border-left: ridge !important;
+  border-right: groove !important;
+  border-color: lightgray !important;
   background: linear-gradient(
     90deg,
     rgb(179, 179, 179) 0%,
     rgb(255, 255, 255) 100%
-  );
-  border-width: 14px;
-  outline: 5px solid #eee;
-  outline-width: 13px;
-  outline-offset: -19px;
+  ) !important;
+  border-width: 14px !important;
+  outline: 5px solid #eee !important;
+  outline-width: 13px !important;
+  outline-offset: -19px !important;
   /* margin: 0 37px; */
   /* background: conic-gradient(gray 60deg, white, gray); */
   box-shadow: none !important;
 }
 
 .MuiButton-outlined {
-  border-radius: 0;
-  border-color: grey;
+  border-radius: 0 !important;
+  border-color: grey !important;
 }
 
 .MuiSelect-outlined {
@@ -220,39 +219,59 @@ h3 {
 
 .MuiOutlinedInput-root {
   border-radius: 0 !important;
-  margin: 0;
+  margin: 0 !important;
 }
 
 .MuiSelect-select {
-  background: linear-gradient(-45deg, white 0%, rgb(170, 170, 170) 100%);
-  color: black;
+  background: linear-gradient(
+    -45deg,
+    white 0%,
+    rgb(170, 170, 170) 100%
+  ) !important;
+  color: black !important;
 }
 
 .MuiButton-root {
-  background: linear-gradient(-45deg, white 0%, rgb(170, 170, 170) 100%);
-  border: none;
-  margin: none;
-  border-radius: 3px;
-  color: black;
+  background: linear-gradient(
+    -45deg,
+    white 0%,
+    rgb(170, 170, 170) 100%
+  ) !important;
+  border: none !important;
+  margin: none !important;
+  border-radius: 3px !important;
+  color: black !important;
 }
 
 .MuiButton-root:hover {
-  border: none;
-  border-radius: 3px;
+  border: none !important;
+  border-radius: 3px !important;
 }
 
 .button-container {
-  background: linear-gradient(-45deg, rgb(170, 170, 170) 0%, white 100%);
-  display: inline-block;
-  padding: 5px;
-  border-radius: 3px;
-  margin: 0 10px 10px 0;
+  background: linear-gradient(
+    -45deg,
+    rgb(170, 170, 170) 0%,
+    white 100%
+  ) !important;
+  display: inline-block !important;
+  padding: 5px !important;
+  border-radius: 3px !important;
+  margin: 0 10px 10px 0 !important;
 }
 
 .MuiButton-root.active {
-  background: linear-gradient(-225deg, white 0%, rgb(170, 170, 170) 100%);
+  background: linear-gradient(
+    -225deg,
+    white 0%,
+    rgb(170, 170, 170) 100%
+  ) !important;
 }
 
 .button-container.active {
-  background: linear-gradient(-225deg, rgb(170, 170, 170) 0%, white 100%);
+  background: linear-gradient(
+    -225deg,
+    rgb(170, 170, 170) 0%,
+    white 100%
+  ) !important;
 }
