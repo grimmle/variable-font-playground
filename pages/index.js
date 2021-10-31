@@ -3,6 +3,9 @@ import { Button, Slider, Container, Box, Select, MenuItem } from '@mui/material'
 import { useState, useEffect } from 'react';
 import opentype from 'opentype.js'
 import fs from 'fs';
+import Label from '../components/label'
+
+import { updateGradient } from '../lib/helpers';
 
 
 export default function App({ fonts }) {
@@ -48,49 +51,77 @@ export default function App({ fonts }) {
 
   return (
     <>
-      <Container>
-        {/* <h1>Font Playground</h1> */}
+      <div id="header">
+        <h1>
+          Variable Font Playground
+        </h1>
+        <div></div>
+      </div>
+      <div className="container">
+        <div className="sidebar">
+          <div style={{background: 'linear-gradient(-45deg, rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', padding: '10px', borderRadius: '25px'}}>
+          <Box sx={{ position: 'relative', background: 'linear-gradient(-45deg, rgb(233, 33, 109) 0%, rgb(74, 65, 231) 100%)', padding: '20px', borderRadius: '20px'}}>
+            <div className="conic-gradient"></div>
+            <h3>Font</h3>
+            <div className='button-container'>
+              <Select value={font} onChange={e => {handleChange('font', e)}} color="primary" variant="outlined" sx={{marginLeft: '10px'}}>
+                {fonts.map((font, id) => <MenuItem key={id} value={font}>{font.name}</MenuItem>)}
+              </Select>
+            </div>
+
+          <h3>Transform</h3>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="uppercase" onClick={e => {handleChange('transform', e)}}>Uppercase</Button>
+            </div>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="lowercase" onClick={e => {handleChange('transform', e)}}>Lowercase</Button>
+            </div>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="capitalize" onClick={e => {handleChange('transform', e)}}>Capitalize</Button>
+            </div>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="" onClick={e => {handleChange('transform', e)}}>None</Button>
+            </div>
+
+          <h3>Align</h3>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="left" onClick={e => {handleChange('align', e)}}>Left</Button>
+            </div>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="center" onClick={e => {handleChange('align', e)}}>Center</Button>
+            </div>
+            <div className='button-container'>
+              <Button variant="outlined" size="small" color="primary" value="right" onClick={e => {handleChange('align', e)}}>Right</Button>
+            </div>
+          </Box>
+          </div>
+
+          <div style={{background: 'linear-gradient(-220deg,white 0%,lightgray 20%,white 60%,gray 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
+          <Box sx={{padding: '10px', background: 'linear-gradient(-40deg,white 0%,lightgray 20%,white 60%,gray 100%)', padding: '15px', borderRadius: '20px'}}>
+            <h3>Vary</h3>
+            <Label>Size {transform.size}</Label>
+            <Slider size="small" value={transform.size} min={10} max={100} sx={{'& .MuiSlider-track': { background: updateGradient(10, 100, transform.size)}}} valueLabelDisplay="off" color="primary" onChange={(e) => handleChange('size', e)} aria-label="Size">
+              <span className='customThumb'></span>
+            </Slider>
+            <Label>Letter Spacing {transform.letterSpace}</Label>
+            <Slider size="small" value={transform.letterSpace} min={0} max={50} sx={{'& .MuiSlider-track': { background: updateGradient(0, 50, transform.letterSpace)}}} valueLabelDisplay="off" color="primary" onChange={(e) => handleChange('letterSpace', e)} aria-label="Letter Spacing">Letter Spacing</Slider>
+            <Label>Line Height {transform.lineHeight}</Label>
+            <Slider size="small" value={transform.lineHeight} min={0} max={200} sx={{'& .MuiSlider-track': { background: updateGradient(0, 200, transform.lineHeight)}}} valueLabelDisplay="off" color="primary" onChange={(e) => handleChange('lineHeight', e)} aria-label="Line Height">lineHeight</Slider>
+            {font.axes.map((axis) => {
+              const key = [axis.tag]
+              return (
+                <div key={axis.tag}>
+                  <Label>{axis.name.en} {fontAxes[key]}</Label>
+                  <Slider size="small" value={fontAxes[key] || 0} defaultValue={axis.defaultValue} min={axis.minValue} max={axis.maxValue} sx={{'& .MuiSlider-track': { background: updateGradient(axis.minValue, axis.maxValue, fontAxes[key])}}} valueLabelDisplay="off" onChange={(e) => handleChange(axis.tag, e)} aria-label={axis.name.en}></Slider>
+                </div>
+              )
+            })}
+          </Box>
+          </div>
+        </div>
+
         <textarea id='variable-text-area' style={style} defaultValue='abcdefghijklmnopqrstuvwxyz'></textarea>
-
-        <h3>Font</h3>
-        <Select value={font} onChange={e => {handleChange('font', e)}} color="primary" variant="outlined" sx={{marginLeft: '10px'}}>
-          {fonts.map((font, id) => <MenuItem key={id} value={font}>{font.name}</MenuItem>)}
-        </Select>
-
-        <h3>Transform</h3>
-        <Box>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="uppercase" onClick={e => {handleChange('transform', e)}}>Uppercase</Button>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="capitalize" onClick={e => {handleChange('transform', e)}}>Capitalize</Button>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="lowercase" onClick={e => {handleChange('transform', e)}}>Lowercase</Button>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="" onClick={e => {handleChange('transform', e)}}>None</Button>
-        </Box>
-
-        <h3>Align</h3>
-        <Box>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="left" onClick={e => {handleChange('align', e)}}>Left</Button>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="center" onClick={e => {handleChange('align', e)}}>Center</Button>
-          <Button variant="outlined" size="small" color="primary" style={{margin: '0 10px'}} value="right" onClick={e => {handleChange('align', e)}}>Right</Button>
-        </Box>
-
-        <h3>Vary</h3>
-        <Box sx={{padding: '10px'}}>
-          <p>Size</p>
-          <Slider size="small" value={transform.size} min={10} max={100} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('size', e)} aria-label="Size">Size</Slider>
-          <p>Letter Spacing</p>
-          <Slider size="small" value={transform.letterSpace} min={0} max={50} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('letterSpace', e)} aria-label="Letter Spacing">Letter Spacing</Slider>
-          <p>Line Height</p>
-          <Slider size="small" value={transform.lineHeight} min={0} max={200} valueLabelDisplay="auto" color="primary" onChange={(e) => handleChange('lineHeight', e)} aria-label="Line Height">lineHeight</Slider>
-          {font.axes.map((axis) => {
-            const key = [axis.tag]
-            return (
-              <div key={axis.tag}>
-                <p>{axis.name.en}</p>
-                <Slider size="small" value={fontAxes[key] || 0} defaultValue={axis.defaultValue} min={axis.minValue} max={axis.maxValue} valueLabelDisplay="auto" onChange={(e) => handleChange(axis.tag, e)} aria-label={axis.name.en}></Slider>
-              </div>
-            )
-          })}
-        </Box>
-      </Container>
+    </div>
     </>
   );
 }
