@@ -48,6 +48,8 @@ $custom-thumb-width: 76px;
   border-left: ridge !important;
   border-right: groove !important;
   border-color: rgb(233, 233, 233) !important;
+  border-top-color: white !important;
+  border-bottom-color: rgb(190, 190, 190) !important;
   /* background: linear-gradient(
     90deg,
     rgb(179, 179, 179) 0%,
@@ -72,6 +74,7 @@ $custom-thumb-width: 76px;
 .MuiOutlinedInput-root {
   border-radius: 0 !important;
   margin: 0 !important;
+  width: 100% !important;
 }
 
 .MuiSelect-select {
