@@ -11,11 +11,6 @@ $custom-thumb-width: 76px;
 }
 
 .MuiSlider-track {
-  /* background: linear-gradient(
-    90deg,
-    rgb(74, 65, 231) 0%,
-    rgb(233, 33, 109) 100%
-) !important; */
   height: 20px !important;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 3px 5px inset !important;
   border-top-right-radius: 0 !important;
@@ -25,7 +20,6 @@ $custom-thumb-width: 76px;
 }
 
 .MuiSlider-rail {
-  /* background: linear-gradient(90deg,rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%) !important; */
   height: 20px !important;
   box-shadow: black 0px 3px 5px inset !important;
   border-top-left-radius: 0 !important;
@@ -33,12 +27,6 @@ $custom-thumb-width: 76px;
   margin: 0 0 0 calc($custom-thumb-width/2) !important;
 }
 
-.MuiSlider-thumb::before {
-  width: 62px !important;
-  height: 14px !important;
-  background: linear-gradient(90deg, darkgrey 0%, white 100%) !important;
-  z-index: 3 !important;
-}
 .MuiSlider-thumb {
   border-radius: 0 !important;
   width: $custom-thumb-width !important;
@@ -50,18 +38,20 @@ $custom-thumb-width: 76px;
   border-color: rgb(233, 233, 233) !important;
   border-top-color: white !important;
   border-bottom-color: rgb(190, 190, 190) !important;
-  /* background: linear-gradient(
-    90deg,
-    rgb(179, 179, 179) 0%,
-    rgb(255, 255, 255) 100%
-) !important; */
   border-width: 14px !important;
   box-shadow: none !important;
+  &::before {
+    width: 62px !important;
+    height: 14px !important;
+    background: linear-gradient(90deg, darkgrey 0%, white 100%) !important;
+    z-index: 3 !important;
+  }
 }
 
-.MuiButton-outlined {
+.MuiOutlinedInput-root {
   border-radius: 0 !important;
-  border-color: grey !important;
+  margin: 0 !important;
+  width: 100% !important;
 }
 
 .MuiSelect-outlined {
@@ -69,12 +59,6 @@ $custom-thumb-width: 76px;
   border-radius: 0 !important;
   padding: 5px 14px !important;
   padding-right: 32px !important;
-}
-
-.MuiOutlinedInput-root {
-  border-radius: 0 !important;
-  margin: 0 !important;
-  width: 100% !important;
 }
 
 .MuiSelect-select {
@@ -87,6 +71,10 @@ $custom-thumb-width: 76px;
 }
 
 .MuiButton-root {
+  min-width: min-content;
+  font-family: inherit;
+  font-weight: bold;
+  text-transform: none;
   background: linear-gradient(
     -45deg,
     white 0%,
@@ -96,17 +84,20 @@ $custom-thumb-width: 76px;
   margin: none !important;
   border-radius: 3px !important;
   color: black !important;
+  &:hover {
+    border: none !important;
+    border-radius: 3px !important;
+  }
+  &.active {
+    background: linear-gradient(
+      -225deg,
+      white 0%,
+      rgb(170, 170, 170) 100%
+    ) !important;
+  }
 }
 
-.MuiButton-root:hover {
-  border: none !important;
-  border-radius: 3px !important;
-}
-
-.MuiButton-root.active {
-  background: linear-gradient(
-    -225deg,
-    white 0%,
-    rgb(170, 170, 170) 100%
-  ) !important;
+.MuiButton-outlined {
+  border-radius: 0 !important;
+  border-color: grey !important;
 }

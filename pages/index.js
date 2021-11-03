@@ -5,6 +5,7 @@ import opentype from 'opentype.js'
 import fs from 'fs';
 import Label from '../components/label'
 import { updateGradient } from '../lib/helpers';
+import { HexColorPicker, HexColorInput } from "react-colorful";
 
 
 export default function App({ fonts }) {
@@ -18,6 +19,7 @@ export default function App({ fonts }) {
     transform: '',
     align: 'left',
   })
+  const [color, setColor] = useState("#4a41e7");
 
   useEffect(() => {
     const ax = Object.assign({}, ...font.axes.map((axis) => {return {[axis.tag]: axis.defaultValue}}))
@@ -45,7 +47,8 @@ export default function App({ fonts }) {
     'fontSize': transform.size, 
     'textAlign': transform.align, 
     'letterSpacing': transform.letterSpace,
-    'lineHeight': transform.lineHeight + 'px', 
+    'lineHeight': transform.lineHeight + 'px',
+    'color': color
   }
 
   return (
@@ -71,16 +74,16 @@ export default function App({ fonts }) {
 
           <h3>Transform</h3>
             <div className='button-container'>
-              <Button variant="outlined" size="small" color="primary" value="uppercase" onClick={e => {handleChange('transform', e)}}>Uppercase</Button>
+              <Button variant="outlined" size="small" color="primary" value="uppercase" onClick={e => {handleChange('transform', e)}}>AA</Button>
             </div>
             <div className='button-container'>
-              <Button variant="outlined" size="small" color="primary" value="lowercase" onClick={e => {handleChange('transform', e)}}>Lowercase</Button>
+              <Button variant="outlined" size="small" color="primary" value="lowercase" onClick={e => {handleChange('transform', e)}}>aa</Button>
             </div>
             <div className='button-container'>
-              <Button variant="outlined" size="small" color="primary" value="capitalize" onClick={e => {handleChange('transform', e)}}>Capitalize</Button>
+              <Button variant="outlined" size="small" color="primary" value="capitalize" onClick={e => {handleChange('transform', e)}}>Aa</Button>
             </div>
             <div className='button-container'>
-              <Button variant="outlined" size="small" color="primary" value="" onClick={e => {handleChange('transform', e)}}>None</Button>
+              <Button variant="outlined" size="small" color="primary" value="" onClick={e => {handleChange('transform', e)}}>none</Button>
             </div>
 
           <h3>Align</h3>
@@ -93,6 +96,14 @@ export default function App({ fonts }) {
             <div className='button-container'>
               <Button variant="outlined" size="small" color="primary" value="right" onClick={e => {handleChange('align', e)}}>Right</Button>
             </div>
+          </Box>
+          </div>
+
+          <div style={{background: 'linear-gradient(-220deg,white 0%,lightgray 20%,white 60%,gray 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
+          <Box sx={{padding: '10px', background: 'linear-gradient(-40deg,white 0%,lightgray 20%,white 60%,gray 100%)', padding: ' 10px 15px', borderRadius: '20px'}}>
+            <h3>Color Picker</h3>
+            <HexColorPicker color={color} onChange={setColor} />
+            <HexColorInput color={color} onChange={setColor} prefixed={true} style={{boxShadow: 'inset 3px 3px 5px #b3b3b3, inset -3px -3px 5px #f3f3f3;', border: 'none', outline: 'none', backgroundColor: 'transparent', borderRadius: '8px', margin: '5px 0', padding: '5px', width: '100%', height: '24px', textTransform: 'uppercase', fontFamily: 'inherit', fontWeight: 'bold' }}/>
           </Box>
           </div>
 
