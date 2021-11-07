@@ -5,12 +5,13 @@ import fs from 'fs';
 
 import Label from '../components/label';
 import { Button, Slider, Box, Select, MenuItem } from '@mui/material';
-import { updateGradient, dropHandler, dragOverHandler, dragLeaveHandler, buildFont } from '../lib/helpers';
+import { updateGradient,  buildFont } from '../lib/helpers';
+import { dropHandler, dragOverHandler, dragLeaveHandler } from '../lib/dropzone';
 import { readFonts } from '../lib/database';
 
 
 export default function App({ localFonts }) {
-  const [reload, setReload] = useState(false)
+  const [reload, setReload] = useState(true)
   const [fonts, setFonts] = useState(localFonts)
   const [font, setFont] = useState(fonts[0])
   const [fontAxes, setFontAxes] = useState({});
@@ -23,13 +24,10 @@ export default function App({ localFonts }) {
     align: 'left',
   })
 
-  useEffect(() => {
-    async function loadFonts(){
-      loadLocalFonts()
-      loadFontsFromDatabase()
-    }
-    loadFonts()
-  }, [reload])
+  const loadFonts = async () => {
+    loadLocalFonts()
+    loadFontsFromDatabase()
+  }
 
   const loadLocalFonts = () => {
     fonts.map((font) => {
@@ -47,14 +45,18 @@ export default function App({ localFonts }) {
       document.fonts.add(fontFace)
       return buildFont(font, fontName)
     })
-    setFonts([ ...fonts, ...loadedFonts ])
+    setFonts([ ...localFonts, ...loadedFonts ])
   }
 
   useEffect(() => {
-    if (reload) {
-      setFont(fonts[fonts.length - 1])
-      setReload(false)
-    }
+    if (!reload) return
+    loadFonts()
+  }, [reload])
+  
+  useEffect(() => {
+    if (!reload) return
+    setFont(fonts[fonts.length - 1])
+    setReload(false)
   }, [fonts])
 
   useEffect(() => {
