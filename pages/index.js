@@ -11,7 +11,7 @@ import { readFonts } from '../lib/database';
 
 
 export default function App({ localFonts }) {
-  const [reload, setReload] = useState(true)
+  const [reload, setReload] = useState(false)
   const [fonts, setFonts] = useState(localFonts)
   const [font, setFont] = useState(fonts[0])
   const [fontAxes, setFontAxes] = useState({});
@@ -47,6 +47,10 @@ export default function App({ localFonts }) {
     })
     setFonts([ ...localFonts, ...loadedFonts ])
   }
+
+  useEffect(() => {
+    loadFonts()
+  }, [])
 
   useEffect(() => {
     if (!reload) return
