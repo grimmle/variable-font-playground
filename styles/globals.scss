@@ -20,6 +20,7 @@ body,
 
 p,
 a,
+span,
 h1,
 h2,
 h3 {
@@ -146,7 +147,13 @@ h3 {
   // height: calc(100% - 62.5px);
 }
 
-.button-container {
+.select-container {
+  width: 100%;
+  max-width: unset !important;
+}
+
+.button-container,
+.select-container {
   background: linear-gradient(
     -45deg,
     rgb(170, 170, 170) 0%,
@@ -164,4 +171,20 @@ h3 {
       white 100%
     ) !important;
   }
+}
+
+.info {
+  font-size: 12px;
+  text-align: justify;
+  display: inline-block;
+  text-justify: inter-word;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 5px;
+  margin-bottom: 10px;
+  // color: black;
+}
+
+.credits {
+  color: white;
+  font-size: 10px;
 }
