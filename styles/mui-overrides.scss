@@ -20,7 +20,6 @@ $custom-thumb-width: 76px;
 }
 
 .MuiSlider-rail {
-  /* background: linear-gradient(90deg,rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%) !important; */
   height: 20px !important;
   box-shadow: black 0px 3px 5px inset !important;
   border-top-left-radius: 0 !important;
@@ -47,11 +46,6 @@ $custom-thumb-width: 76px;
     background: linear-gradient(90deg, darkgrey 0%, white 100%) !important;
     z-index: 3 !important;
   }
-}
-
-.MuiButton-outlined {
-  border-radius: 0 !important;
-  border-color: grey !important;
 }
 
 .MuiInput-root {
@@ -91,19 +85,22 @@ $custom-thumb-width: 76px;
   margin: none !important;
   border-radius: 3px !important;
   color: black !important;
+  &:hover {
+    border: none !important;
+    border-radius: 3px !important;
+  }
+  &.active {
+    background: linear-gradient(
+      -225deg,
+      white 0%,
+      rgb(170, 170, 170) 100%
+    ) !important;
+  }
 }
 
-.MuiButton-root:hover {
-  border: none !important;
-  border-radius: 3px !important;
-}
-
-.MuiButton-root.active {
-  background: linear-gradient(
-    -225deg,
-    white 0%,
-    rgb(170, 170, 170) 100%
-  ) !important;
+.MuiButton-outlined {
+  border-radius: 0 !important;
+  border-color: grey !important;
 }
 
 .MuiMenuItem-root {
