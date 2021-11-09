@@ -1,4 +1,16 @@
 @import "mui-overrides.scss";
+@import "react-colorful-overrides.scss";
+
+$red-to-blue: linear-gradient(
+  -45deg,
+  rgb(74, 65, 231) 0%,
+  rgb(233, 33, 109) 100%
+);
+$blue-to-red: linear-gradient(
+  -45deg,
+  rgb(233, 33, 109) 0%,
+  rgb(74, 65, 231) 100%
+);
 
 * {
   box-sizing: border-box;
@@ -15,16 +27,7 @@ body,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
   font-family: "PT Mono", monospace;
   background: lightgray;
-  overflow: hidden;
-}
-
-p,
-a,
-span,
-h1,
-h2,
-h3 {
-  color: white;
+  overflow-y: hidden;
 }
 
 p {
@@ -64,7 +67,7 @@ h3 {
     font-size: 24px;
     text-align: right;
   }
-  div {
+  #line {
     height: 15px;
     background: linear-gradient(
       90deg,
@@ -111,9 +114,6 @@ h3 {
   ) !important;
 }
 
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
 .sidebar {
   min-width: 370px;
   width: 370px;
@@ -122,15 +122,15 @@ h3 {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 #variable-text-area {
   background-color: transparent;
-  /* color: rgb(233, 33, 109); */
   color: black;
-  /* border-radius: 25px; */
   border: none;
-  /* border-bottom: 1px solid white; */
   resize: none;
   outline: none;
   width: 100%;
@@ -141,10 +141,16 @@ h3 {
 .container {
   display: flex;
   flex-direction: row;
-  // height: calc(100% - 82.5px);
   height: 100%;
   max-height: calc(100% - 62.5px) !important;
-  // height: calc(100% - 62.5px);
+  p,
+  a,
+  span,
+  h1,
+  h2,
+  h3 {
+    color: white;
+  }
 }
 
 .select-container {
@@ -155,15 +161,13 @@ h3 {
 .button-container,
 .select-container {
   background: linear-gradient(
-    -45deg,
+    -20deg,
     rgb(170, 170, 170) 0%,
     white 100%
   ) !important;
   display: inline-block !important;
   padding: 5px !important;
   border-radius: 3px !important;
-  margin: 0 10px 10px 0 !important;
-  max-width: 220px;
   &.active {
     background: linear-gradient(
       -225deg,
@@ -181,16 +185,53 @@ h3 {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 5px;
   margin-bottom: 10px;
-  // color: black;
 }
 
 .credits {
   color: white;
   font-size: 10px;
+  margin: 5px 0;
 }
 
 .placeholder {
-  color: black;
+  color: black !important;
   opacity: 0.38;
   font-style: italic;
 }
+
+.grid-container {
+  display: grid;
+  grid-row-gap: 5px;
+  grid-column-gap: 5px;
+}
+
+.col2 {
+  grid-template-columns: 1fr 1fr;
+}
+.col3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+// .round-button-container {
+//   background: $red-to-blue;
+//   border-radius: 50%;
+//   height: 35px;
+//   width: 35px;
+//   position: relative;
+//   display: inline-block;
+// }
+// .round-button {
+//   margin: 0;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   -ms-transform: translate(-50%, -50%);
+//   transform: translate(-50%, -50%);
+//   height: 30px;
+//   width: 30px;
+//   border: none;
+//   outline: none;
+//   background: $blue-to-red;
+//   border-radius: 50%;
+//   color: white;
+// }
