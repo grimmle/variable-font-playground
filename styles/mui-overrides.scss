@@ -76,12 +76,14 @@ $custom-thumb-width: 76px;
 }
 
 .MuiButton-root {
+  height: 24px;
+  width: 100%;
   min-width: min-content;
-  font-family: inherit;
-  font-weight: bold;
-  text-transform: none;
+  // font-family: inherit;
+  // font-weight: bold;
+  text-transform: uppercase;
   background: linear-gradient(
-    -45deg,
+    -20deg,
     white 0%,
     rgb(170, 170, 170) 100%
   ) !important;
@@ -109,4 +111,8 @@ $custom-thumb-width: 76px;
 
 .MuiMenuItem-root {
   text-transform: capitalize !important;
+}
+
+.Mui-disabled {
+  -webkit-text-fill-color: black;
 }

@@ -17,7 +17,7 @@ export default function App({ localFonts }) {
   const [fonts, setFonts] = useState(localFonts)
   const [font, setFont] = useState(fonts[0])
   const [fontAxes, setFontAxes] = useState({});
-  const [fontInstance, setFontInstance] = useState(font.instances[0] || '');
+  const [fontInstance, setFontInstance] = useState(font.instances?.[0] ?? '');
   const [variation, setVariation] = useState('')
   const [transform, setTransform] = useState({
     size: 50,
@@ -43,13 +43,20 @@ export default function App({ localFonts }) {
     const dbFonts = await readFonts()
     if (!dbFonts) return 
     const loadedFonts = dbFonts.map(f => {
-      const font = opentype.parse(f.buffer);
-      const fontName = font.tables.name.fontFamily?.en
-      const fontFace = new FontFace(fontName, f.buffer)
-      document.fonts.add(fontFace)
-      return buildFont(font, fontName)
-    })
-    setFonts([ ...localFonts, ...loadedFonts ])
+      try {
+        const font = opentype.parse(f.buffer);
+        const fileName = f.file_name.split('.')[0]
+        const familyName = font.tables.name.fontFamily?.en
+        const fontName = familyName.length > 2 ? familyName : fileName
+        const fontFace = new FontFace(fontName, f.buffer)
+        document.fonts.add(fontFace)
+        return buildFont(font, fontName)  
+      } catch (error) {
+        //setError(error)
+        console.log(error)
+      }
+    }).filter((font) => font !== undefined)
+    if(loadedFonts) setFonts([ ...localFonts, ...loadedFonts ])
   }
 
   useEffect(() => {
@@ -68,10 +75,10 @@ export default function App({ localFonts }) {
   }, [fonts])
 
   useEffect(() => {
+    setFontInstance(font.instances?.[0] ?? '')
     if (!font.axes) return 
     const ax = Object.assign({}, ...font.axes.map((axis) => {return {[axis.tag]: axis.defaultValue}}))
     setFontAxes(ax)
-    setFontInstance(font.instances[0] || '')
   }, [font])
 
   useEffect(() => {
@@ -115,8 +122,9 @@ export default function App({ localFonts }) {
     <div 
       onDrop={async (e)=> { 
         dropHandler(e)
-          .then((res) => { 
-            if(res === true) setReload(true) 
+          .then((res) => {
+            if(res.status === 'success') setReload(true) 
+            else console.log(res.msg)
           })
         }} 
       onDragOver={dragOverHandler} 
@@ -128,7 +136,7 @@ export default function App({ localFonts }) {
           <h1>
             Variable Font Playground
           </h1>
-          <div/>
+          <div id="line"/>
         </div>
         <div className="container">
           <div className="sidebar">
@@ -138,7 +146,7 @@ export default function App({ localFonts }) {
                 {/* <p className="info">
                   play with these free to use fonts or drag &apos;n drop your own
                 </p> */}
-                <div className='select-container'>
+                <div className='select-container' style={{marginBottom: '15px'}}>
                   <Select value={font} onChange={e => {handleChange('font', e)}} color="primary" variant="standard" sx={{marginLeft: '10px'}}>
                     {fonts.map((font, id) => <MenuItem key={id} value={font}>{font.name}</MenuItem>)}
                   </Select>
@@ -146,10 +154,11 @@ export default function App({ localFonts }) {
                 <h3>Preset</h3>
                 <div className='select-container'>
                   <Select 
-                    defaultValue='' 
+                    disabled={!font.instances}
+                    defaultValue=''
                     displayEmpty 
                     renderValue={(selected) => {
-                      if (!selected) return <span className="placeholder">None</span>;
+                      if (!selected) return <span className="placeholder">None</span>
                       return selected.name?.en
                     }} 
                     value={fontInstance} 
@@ -158,47 +167,60 @@ export default function App({ localFonts }) {
                     variant="standard" 
                     sx={{marginLeft: '10px'}}>
                       {font.instances
-                        ? (font.instances.map((instance, id) => {
+                        && (font.instances.map((instance, id) => {
                             if(!instance.name?.en) return
-                            return <MenuItem key={id} value={instance}>{instance.name.en}</MenuItem>}))
-                        : <MenuItem disabled value="">None</MenuItem>}
+                            return <MenuItem key={id} value={instance}>{instance.name.en}</MenuItem>}))}
                   </Select>
                 </div>
                 <Credits font={font}/>
-              </Box>
-            </div>
-
-            <div style={{background: 'linear-gradient(-45deg, rgb(74, 65, 231) 0%, rgb(233, 33, 109) 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
-              <Box sx={{ position: 'relative', background: 'linear-gradient(-45deg, rgb(233, 33, 109) 0%, rgb(74, 65, 231) 100%)', padding: '20px 20px 50px', borderRadius: '20px'}}>
-                <div className="conic-gradient top" />
-                <div className="conic-gradient bottom" />
-
+                <br />
                 <h3>Transform</h3>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="uppercase" onClick={e => {handleChange('transform', e)}}>Uppercase</Button>
-                </div>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="lowercase" onClick={e => {handleChange('transform', e)}}>Lowercase</Button>
-                </div>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="capitalize" onClick={e => {handleChange('transform', e)}}>Capitalize</Button>
-                </div>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="" onClick={e => {handleChange('transform', e)}}>None</Button>
+                <div className="grid-container col2" style={{marginBottom: '15px'}}>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="uppercase" onClick={e => {handleChange('transform', e)}}>uppercase</Button>
+                  </div>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="lowercase" onClick={e => {handleChange('transform', e)}}>lowercase</Button>
+                  </div>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="capitalize" onClick={e => {handleChange('transform', e)}}>capitalize</Button>
+                  </div>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="" onClick={e => {handleChange('transform', e)}}>none</Button>
+                  </div>
                 </div>
 
                 <h3>Align</h3>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="left" onClick={e => {handleChange('align', e)}}>Left</Button>
-                </div>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="center" onClick={e => {handleChange('align', e)}}>Center</Button>
-                </div>
-                <div className='button-container'>
-                  <Button variant="outlined" size="small" color="primary" value="right" onClick={e => {handleChange('align', e)}}>Right</Button>
+                <div className="grid-container col3">
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="left" onClick={e => {handleChange('align', e)}}>Left</Button>
+                  </div>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="center" onClick={e => {handleChange('align', e)}}>Center</Button>
+                  </div>
+                  <div className='button-container'>
+                    <Button variant="outlined" size="small" color="primary" value="right" onClick={e => {handleChange('align', e)}}>Right</Button>
+                  </div>
                 </div>
               </Box>
             </div>
+
+            {/* <div style={{background: 'linear-gradient(-220deg,white 0%,lightgray 20%,white 60%,gray 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
+              <Box sx={{padding: '10px', background: 'linear-gradient(-40deg,white 0%,lightgray 20%,white 60%,gray 100%)', padding: '15px', borderRadius: '20px'}}>
+                  <div className="round-button-container">
+                    <button className="round-button">AA</button>
+                  </div>
+                  <div className="round-button-container">
+                    <button className="round-button">Aa</button>
+                  </div>
+                  <div className="round-button-container">
+                    <button className="round-button">aa</button>
+                  </div>
+                  <div className="round-button-container">
+                    <button className="round-button">x</button>
+                  </div>
+              </Box>
+            </div> */}
 
             <div style={{background: 'linear-gradient(-220deg,white 0%,lightgray 20%,white 60%,gray 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
               <Box sx={{padding: '10px', background: 'linear-gradient(-40deg,white 0%,lightgray 20%,white 60%,gray 100%)', padding: '15px', borderRadius: '20px'}}>
@@ -218,10 +240,14 @@ export default function App({ localFonts }) {
                     </div>
                   )
                 })}
+              </Box>
+            </div>
 
-                <h3>Color Picker</h3>
+            <div style={{background: 'linear-gradient(-220deg,white 0%,lightgray 20%,white 60%,gray 100%)', boxShadow: '0px 2px 6px rgba(0,0,0,0.3)', margin: '20px 0 0 0', padding: '10px', borderRadius: '25px'}}>
+              <Box sx={{padding: '10px', background: 'linear-gradient(-40deg,white 0%,lightgray 20%,white 60%,gray 100%)', padding: '15px', borderRadius: '20px'}}>
+                <h3>Color</h3>
+                <Label>Hex <HexColorInput color={color} onChange={setColor} prefixed={true} style={{border: 'none', outline: 'none', backgroundColor: 'transparent', fontSize: 'inherit', textTransform: 'uppercase', fontFamily: 'inherit', fontWeight: 'bold' }}/></Label>
                 <HexColorPicker color={color} onChange={setColor} />
-                <HexColorInput color={color} onChange={setColor} prefixed={true} style={{boxShadow: 'inset 3px 3px 5px #b3b3b3, inset -3px -3px 5px #f3f3f3;', border: 'none', outline: 'none', backgroundColor: 'transparent', borderRadius: '8px', margin: '5px 0', padding: '5px', width: '100%', height: '24px', textTransform: 'uppercase', fontFamily: 'inherit', fontWeight: 'bold' }}/>
               </Box>
             </div>
           </div>
