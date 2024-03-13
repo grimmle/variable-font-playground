@@ -131,7 +131,7 @@ export default function App({ localFonts }) {
   return (
     <>
       <div id="drop-indicator">
-        <CircularText side={0.85}>
+        <CircularText side={0.85} color={color}>
           drop here&nbsp;drop here&nbsp;drop here&nbsp;drop here&nbsp;
         </CircularText>
       </div>
@@ -140,10 +140,12 @@ export default function App({ localFonts }) {
         onDrop={async (e) => {
           dropHandler(e)
             .then(async (res) => {
-              if (res.status === 'success') {
-                setReload(true)
+              console.log(res)
+              if (res) {
+                if (res.status === 'success') {
+                  setReload(true)
+                } else console.log(res.msg)
               }
-              else console.log(res.msg)
               dragLeaveHandler(e)
             })
         }}
