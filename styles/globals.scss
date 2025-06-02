@@ -1,12 +1,16 @@
 @import "mui-overrides.scss";
 @import "react-colorful-overrides.scss";
 
-$red-to-blue: linear-gradient(-45deg,
-    rgb(74, 65, 231) 0%,
-    rgb(233, 33, 109) 100%);
-$blue-to-red: linear-gradient(-45deg,
-    rgb(233, 33, 109) 0%,
-    rgb(74, 65, 231) 100%);
+$red-to-blue: linear-gradient(
+  -45deg,
+  rgb(74, 65, 231) 0%,
+  rgb(233, 33, 109) 100%
+);
+$blue-to-red: linear-gradient(
+  -45deg,
+  rgb(233, 33, 109) 0%,
+  rgb(74, 65, 231) 100%
+);
 
 * {
   box-sizing: border-box;
@@ -34,8 +38,14 @@ p {
 h3 {
   margin: 0;
   font-size: 20px;
-  color: white;
   text-transform: uppercase;
+  color: white;
+  text-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px;
+  // color: transparent !important;
+  // background-clip: text;
+  // -webkit-background-clip: text;
+  // -moz-background-clip: text;
+  // background-color: rgba(0, 0, 0, 1);
 }
 
 #dropzone {
@@ -64,7 +74,7 @@ h3 {
   }
 }
 
-.circular-text [style*=--index] {
+.circular-text [style*="--index"] {
   font-family: monospace;
   text-transform: uppercase;
   font-weight: bold;
@@ -72,8 +82,9 @@ h3 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform:
-    translate(-50%, -50%) rotate(calc(360deg / var(--total) * var(--index))) translateY(calc(var(--radius, 5) * -1ch));
+  transform: translate(-50%, -50%)
+    rotate(calc(360deg / var(--total) * var(--index)))
+    translateY(calc(var(--radius, 5) * -1ch));
 }
 
 #header {
@@ -90,9 +101,11 @@ h3 {
 
   #line {
     height: 15px;
-    background: linear-gradient(90deg,
-        rgb(74, 65, 231) 0%,
-        rgb(233, 33, 109) 100%);
+    background: linear-gradient(
+      90deg,
+      rgb(74, 65, 231) 0%,
+      rgb(233, 33, 109) 100%
+    );
     width: 100%;
     border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
@@ -100,10 +113,12 @@ h3 {
 }
 
 .conic-gradient {
-  background: conic-gradient(white 30deg,
-      #c1c1c1 140deg,
-      white 200deg,
-      #c8c8c8 300deg);
+  background: conic-gradient(
+    white 30deg,
+    #c1c1c1 140deg,
+    white 200deg,
+    #c8c8c8 300deg
+  );
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -124,11 +139,13 @@ h3 {
 .gradient-bg {
   padding: 20px;
   border-radius: 25px;
-  background: linear-gradient(-40deg,
-      white 0%,
-      lightgray 20%,
-      white 60%,
-      gray 100%) !important;
+  background: linear-gradient(
+    -40deg,
+    white 0%,
+    lightgray 20%,
+    white 60%,
+    gray 100%
+  ) !important;
 }
 
 .sidebar {
@@ -156,7 +173,7 @@ h3 {
   resize: none;
   outline: none;
   width: 100%;
-  padding: 30px 0 0 20px;
+  padding: 30px 20px 0 20px;
   font-size: 30px;
 }
 
@@ -183,17 +200,16 @@ h3 {
 
 .button-container,
 .select-container {
-  background: linear-gradient(-20deg,
-      rgb(170, 170, 170) 0%,
-      white 100%) !important;
+  background: linear-gradient(-20deg, rgb(170, 170, 170) 0%, white 100%);
   display: inline-block !important;
   padding: 5px !important;
   border-radius: 3px !important;
 
-  &.active {
-    background: linear-gradient(-225deg,
-        rgb(170, 170, 170) 0%,
-        white 100%) !important;
+  &:hover > div > div,
+  &:focus > div > div,
+  &:hover > button,
+  &:focus > button {
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -256,7 +272,6 @@ h3 {
 //   border-radius: 50%;
 //   color: white;
 // }
-
 
 @keyframes rotation {
   from {
